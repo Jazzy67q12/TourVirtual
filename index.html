@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tour Virtual</title>
+<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/v6.1.1/dist/aframe-extras.loaders.min.js"></script>
+<script src="https://unpkg.com/aframe-oculus-touch-controls@^3.0.1/dist/aframe-oculus-touch-controls.min.js"></script>
+<script src="https://unpkg.com/aframe-movement-controls-component"></script>
+<script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+<script src="js/controller-listener.js"></script>
+<script src="js/player-move.js"></script>
+<script src="js/raycaster-extras.js"></script>
+</head>
+<body>
+<a-scene>
+<a-asset-item id="pres" src="sr/TourVirtual2.glb"></a-asset-item>
+<a-assets>
+</a-assets>
+	<a-entity gltf-model="#pres" scale="1 1 1" position="20 -1 -6" rotation="-0.292 90 -0.265"></a-entity>
+	<a-entity
+id="player"
+position="1 0 -5.3" rotation="0 -90 0"
+player-move="controllerListenerId: #controller-data;
+navigationMeshClass: environmentGround;">
+<a-camera camera="" position="0 0 3" wasd-controls="" rotation="-0.250 -29.115 0" look-controls="" aframe-injected="" data-aframe-inspector-original-camera="">
+</a-camera>
+<a-cursor
+material="color:red" geometry="primitive:ring; radiusInner: 0.02; radiusOuter: 0.05"
+></a-cursor></a-camera>
+<a-entity
+id="controller-data"
+controller-listener="leftControllerId: #left-controller;
+rightControllerId: #right-controller;">
+</a-entity>
+<a-entity
+id="left-controller"
+sphere-collider="objects: a-box" super-hands hand-controls="hand: left">
+</a-entity>
+<a-entity
+id="right-controller"
+sphere-collider="objects: a-box" super-hands hand-controls="hand: right "
+raycaster="objects: .raycaster-target, .environmentGround;"
+raycaster-extras="controllerListenerId: #controller-data;
+beamImageSrc: #gradient; beamLength: 0.5;">
+</a-entity>
+</a-entity>
+
+<a-sky material="src:#sky" animation="property: rotation; easing: linear; dir: normal; to: 0.1 360 1; loop: true; dur: 150000"></a-sky>
+</body>
